@@ -1,15 +1,15 @@
 import {createAction, createSlice} from '@reduxjs/toolkit'
-import {getTheme, setTheme} from "../utilities/localStorage";
+import {LocalStorageManager} from "../utilities/localStorage";
 
 export const setThemeMode = createAction('setThemeMode', (theme) => {
-    setTheme(theme)
+    LocalStorageManager.setTheme(theme)
     return {payload: theme}
 })
 
 const theme = createSlice({
         name: 'theme',
         initialState: {
-            theme: getTheme()
+            theme: LocalStorageManager.getTheme()
         },
         extraReducers: {
             [setThemeMode]: (state, action) => {

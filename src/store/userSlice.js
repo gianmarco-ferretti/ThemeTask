@@ -1,12 +1,12 @@
 import {createAction, createAsyncThunk, createSlice} from '@reduxjs/toolkit'
 import {httpLoginUser} from "../httpRequests/user.http";
-import {getUser, setUser} from "../utilities/localStorage";
+import {LocalStorageManager} from "../utilities/localStorage";
 
 export const loginUser = createAsyncThunk(
     'loginUser',
     async (data) => {
         const response = await httpLoginUser(data)
-        setUser(JSON.stringify(response.data.user))
+        LocalStorageManager.setUser(JSON.stringify(response.data.user))
         return response?.data
     }
 )
@@ -17,7 +17,7 @@ export const logoutUser = createAction('logoutUser')
 const user = createSlice({
     name: 'user',
     initialState: {
-        user: JSON.parse(getUser()) || null,
+        user: JSON.parse(LocalStorageManager.getUser()) || null,
     },
     extraReducers: {
         [loginUser.fulfilled]: (state, action) => {

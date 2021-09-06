@@ -7,8 +7,7 @@ import routes from "./routes";
 
 
 function App() {
-    const themeSetted = useSelector(state => state.theme.isActive)
-
+    const themeSetted = useSelector(state => state.theme.theme)
 
     return (
         <BrowserRouter>

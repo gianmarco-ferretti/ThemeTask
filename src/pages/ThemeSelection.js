@@ -6,7 +6,7 @@ import {createUseStyles, useTheme} from "react-jss";
 import {useDispatch, useSelector} from "react-redux";
 import {logoutUser} from "../store/userSlice";
 import {setThemeMode} from "../store/themeSlice";
-import {removeUser} from "../utilities/localStorage";
+import {LocalStorageManager} from "../utilities/localStorage";
 
 const useStyles = createUseStyles(theme => ({
     myButton: {
@@ -31,7 +31,7 @@ const ThemeSelection = () => {
 
     const onSubmit = () => {
         history.push("/");
-        removeUser()
+        LocalStorageManager.removeUser()
         dispatch(logoutUser())
     }
 
