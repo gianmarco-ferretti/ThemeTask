@@ -1,5 +1,4 @@
 import React, {useEffect} from 'react';
-import Select from 'react-select'
 import {useForm} from "react-hook-form";
 import {useHistory} from "react-router-dom";
 import {createUseStyles, useTheme} from "react-jss";
@@ -7,6 +6,7 @@ import {useDispatch, useSelector} from "react-redux";
 import {logoutUser} from "../store/userSlice";
 import {setThemeMode} from "../store/themeSlice";
 import {LocalStorageManager} from "../utilities/localStorage";
+import CustomSelect from "../components/CustomSelect";
 
 const useStyles = createUseStyles(theme => ({
     myButton: {
@@ -19,7 +19,6 @@ const useStyles = createUseStyles(theme => ({
     }
 }));
 
-
 const ThemeSelection = () => {
     const {handleSubmit} = useForm();
     const history = useHistory();
@@ -27,18 +26,14 @@ const ThemeSelection = () => {
     const theme = useTheme();
     const classes = useStyles();
     const user = useSelector(state => state.user.user);
-
+    const themeOptions = useSelector(state => state.theme.options);
 
     const onSubmit = () => {
         history.push("/");
         LocalStorageManager.removeUser()
+        LocalStorageManager.removeThemeOptions()
         dispatch(logoutUser())
     }
-
-    const handleSelect = value => {
-        dispatch(setThemeMode(value))
-    }
-
 
     useEffect(() => {
         if (!user) {
@@ -46,19 +41,10 @@ const ThemeSelection = () => {
         }
     }, [user])
 
-    const options = [
-        {value: 'light', label: 'Light'},
-        {value: 'dark', label: 'Dark'},
-        {value: 'red', label: 'Red'},
-        {value: 'blue', label: 'Blue'},
-        {value: 'green', label: 'Green'}
-    ]
-
-
     return (
         <div className={classes.container}>
             <button onClick={handleSubmit(onSubmit)}>Logout</button>
-            <Select options={options} onChange={(e) => handleSelect(e.value)}/>
+            <CustomSelect options={themeOptions} action={setThemeMode}></CustomSelect>
         </div>
     )
 }

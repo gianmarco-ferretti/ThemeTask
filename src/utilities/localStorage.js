@@ -18,11 +18,26 @@ const removeUser = () => {
     return localStorage.removeItem('user');
 }
 
+const getThemeOptions = () => {
+    return localStorage.getItem('options');
+}
+
+const setThemeOptions = (options) => {
+    return localStorage.setItem('options', options);
+}
+
+const removeThemeOptions = () => {
+    return localStorage.removeItem('options');
+}
+
 export const LocalStorageManager = {
     getTheme,
     setTheme,
     getUser,
     setUser,
     removeUser,
+    getThemeOptions,
+    setThemeOptions,
+    removeThemeOptions,
 }
 

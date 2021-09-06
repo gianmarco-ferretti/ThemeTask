@@ -3,6 +3,7 @@ import {useDispatch} from "react-redux";
 import {loginUser} from "../store/userSlice.js";
 import {useForm} from "react-hook-form";
 import {useHistory} from "react-router-dom";
+import {fetchThemeOptions} from "../store/themeSlice";
 
 
 const Login = () => {
@@ -12,6 +13,7 @@ const Login = () => {
     const {register, handleSubmit, formState: {errors}} = useForm();
     const onSubmit = data => {
         dispatch(loginUser(data));
+        dispatch(fetchThemeOptions())
         history.push("/theme-selection");
     }
 
